@@ -1,17 +1,14 @@
 const express = require('express');
-const app = express();
-const port = 3000;
+require('dotenv').config();
 
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log('Something bad happened', err);
-    }
-    console.log(`Server is listening on ${port}`);
-});
+const usersRouter = require("./src/routes/usersRoutes");
+const newsRouter = require("./src/routes/newsRoutes");
 
-
+app.use("/users", usersRouter);
+app.use("/news", newsRouter);
 
 module.exports = app;
